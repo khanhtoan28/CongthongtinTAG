@@ -359,8 +359,8 @@ export default function AdminApp() {
     return (
       <div className="login-container">
         <div className="login-box">
-          <div style={{ width: '120px', margin: '0 auto 20px' }}>
-            <img src="/logo-tag-transparent.png" alt="TAGTECH" style={{ width: '100%', filter: 'drop-shadow(0 0 8px rgba(77,124,255,0.4))' }} />
+          <div className="login-logo">
+            <img src="/logo-tag-transparent.png" alt="TAGTECH" />
           </div>
           <h2>TAGTECH Content Studio</h2>
           <p>Nhập mã quản trị để tiếp tục</p>
@@ -407,8 +407,8 @@ export default function AdminApp() {
 
   if (!data) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: '#05091a', color: '#4d7cff' }}>
-        Loading Configuration Studio...
+      <div className="admin-loading">
+        Đang tải trang quản trị...
       </div>
     );
   }
@@ -436,7 +436,7 @@ export default function AdminApp() {
           <span>
             <i style={{ display: 'inline-block', width: '6px', height: '6px', background: '#10b981', borderRadius: '50%', marginRight: '7px' }}></i> API ONLINE
           </span>
-          <button type="button" onClick={handleLogout} style={{ background: 'none', border: '1px solid var(--line)', color: '#ff806d', padding: '8px 12px', cursor: 'pointer', borderRadius: '4px', textAlign: 'center', marginTop: '10px', fontSize: '10px', fontWeight: '600' }}>
+          <button type="button" onClick={handleLogout} className="logout-button">
             Đăng xuất
           </button>
           <a href="/" target="_blank" rel="noreferrer" style={{ marginTop: '10px' }}>
@@ -452,8 +452,8 @@ export default function AdminApp() {
             <h1>Quản trị nội dung</h1>
           </div>
           <div className="actions">
-            <span style={{ fontSize: '12px', color: '#10b981', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
-              <i style={{ display: 'inline-block', width: '8px', height: '8px', background: '#10b981', borderRadius: '50%' }}></i>
+            <span className="admin-status">
+              <i></i>
               Đã xác thực quản trị
             </span>
           </div>

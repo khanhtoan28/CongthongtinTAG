@@ -124,6 +124,9 @@ async function handler(req, res) {
   let pathnameStatic = decodeURIComponent(url.pathname);
   if (pathnameStatic === '/') pathnameStatic = '/index.html';
   if (pathnameStatic === '/admin' || pathnameStatic === '/admin/') pathnameStatic = '/admin.html';
+  const publicRoutes = ['/giai-phap', '/san-pham', '/du-an', '/tin-tuc', '/ve-tagtech', '/lien-he'];
+  if (publicRoutes.includes(pathnameStatic.replace(/\/$/, ''))) pathnameStatic = '/index.html';
+  if (/^\/tin-tuc\/[^/]+\/?$/.test(pathnameStatic)) pathnameStatic = '/index.html';
   const file = path.normalize(path.join(PUBLIC, pathnameStatic));
   if (!file.startsWith(PUBLIC)) return send(res, 403, 'Forbidden', 'text/plain');
   try {
@@ -143,4 +146,3 @@ async function start() {
   }
 }
 start();
-
