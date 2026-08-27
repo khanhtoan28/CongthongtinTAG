@@ -23,7 +23,9 @@ const productCatalog = [
  {category:'Phần mềm',type:'payment',title:'Nền tảng thanh toán thông minh',description:'Hỗ trợ thanh toán điện tử, QR Code và kết nối nhiều phương thức thanh toán.'},
  {category:'Phần mềm',type:'education',title:'Phần mềm quản lý giáo dục',description:'Giải pháp quản lý đào tạo, học tập và dữ liệu giáo dục.'},
  {category:'Thiết bị',type:'iot',title:'Thiết bị IoT & cảm biến',description:'Hệ thống thiết bị thông minh phục vụ thu thập dữ liệu và giám sát.'}
-];
+];  
+
+
 const projects = [
   ['Y tế','2025','Triển khai hệ thống Kiosk y tế','Rút ngắn thời gian chờ và nâng cao trải nghiệm người bệnh.'],
   ['Chính quyền','2024','Kiosk hành chính công','Số hóa quy trình tiếp nhận và phục vụ người dân.'],
