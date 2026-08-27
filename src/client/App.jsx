@@ -66,7 +66,7 @@ const leadership = [
 ];
 
 function Header({open,setOpen,path}) { return <header className="site-header"><div className="container header-inner">
-  <a className="brand-logo" href="/"><img src="/logo-tag-transparent.png" alt="TAGTECH" /></a>
+  <a className="brand-logo" href="/"><img src="/logo-tag-optimized.png" alt="TAGTECH" /></a>
   <button className="menu-toggle" onClick={()=>setOpen(!open)} aria-label="Mở menu">☰</button>
   <nav className={open?'open':''}>{nav.map(([label,href])=><a className={path===href?'active':''} href={href} key={label} onClick={()=>setOpen(false)}>{label}</a>)}<a className={`nav-contact ${path==='/lien-he'?'active':''}`} href="/lien-he">Liên hệ</a></nav>
 </div></header> }
@@ -74,7 +74,7 @@ function Heading({eyebrow,title,href}) { return <div className="section-heading"
 function StatsSection({stats,className=''}) { return <section className={`stats-section ${className}`}><div className="container stats-grid">{stats.map((x,i)=><article key={x._id||x.label||i}><strong>{x.value}</strong><span>{x.label}</span></article>)}</div></section> }
 function Visual({type}) { return <div className={`product-visual ${type}`}>{type==='kiosk'?<div className="kiosk-device"><i/><b>TAG</b><span/></div>:type==='iot'?<div className="iot-device"><i/><i/><span/></div>:type==='payment'?<div className="payment-device"><b>QR</b><i/><span/></div>:<div className="software-screen"><span/><i/><i/><i/></div>}</div> }
 function Footer({contact={},tagline}) { return <footer id="about"><div className="container footer-grid">
-  <div className="footer-brand"><img src="/logo-tag-transparent.png" alt="TAGTECH"/><p>{tagline||'Giải pháp công nghệ tạo giá trị thực cho cuộc sống.'}</p></div>
+  <div className="footer-brand"><img src="/logo-tag-optimized.png" alt="TAGTECH"/><p>{tagline||'Giải pháp công nghệ tạo giá trị thực cho cuộc sống.'}</p></div>
   <div><h3>Giải pháp</h3><a href="#solutions">Y tế số</a><a href="#solutions">Chính quyền số</a><a href="#solutions">Giáo dục số</a><a href="#solutions">Doanh nghiệp số</a></div>
   <div><h3>Sản phẩm</h3><a href="#products">Kiosk y tế</a><a href="#products">Kiosk hành chính công</a><a href="#products">Nền tảng phần mềm</a><a href="#products">Thiết bị IoT</a></div>
   <div><h3>Công ty</h3><a href="#about">Về TAGTECH</a><a href="#projects">Dự án</a><a href="#news">Tin tức</a><a href="#contact">Liên hệ</a></div>
@@ -178,14 +178,20 @@ function ContactPage({data,open,setOpen}){
  const contact=data.contact||{},email=contact.email||'info@tagtech.vn';
  const details=[{icon:'⌖',label:'Trụ sở chính',value:contact.address||'Đang cập nhật'},{icon:'⌕',label:'Hotline',value:contact.phone||'Đang cập nhật',href:contact.phone?`tel:${contact.phone.replace(/\s/g,'')}`:null},{icon:'✉',label:'Email',value:email,href:`mailto:${email}`},{icon:'◎',label:'Website',value:contact.website||email.split('@')[1]||'Đang cập nhật'},{icon:'◷',label:'Giờ làm việc',value:contact.workingHours||'Đang cập nhật'}];
  useEffect(()=>{document.title='Liên hệ | TAGTECH'},[]);
- return <><Header open={open} setOpen={setOpen} path="/lien-he"/><main className="inner-main contact-page"><section className="contact-hero"><div className="container"><span>KẾT NỐI VỚI TAGTECH</span><h1>Liên hệ với chúng tôi</h1><p>Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn.</p></div></section><section className="contact-content"><div className="container contact-layout"><aside className="contact-details"><div><span>THÔNG TIN LIÊN HỆ</span><h2>Hãy bắt đầu một cuộc trò chuyện</h2><p>Chia sẻ nhu cầu của bạn để TAGTECH có thể tư vấn giải pháp phù hợp nhất.</p></div><div className="contact-list">{details.map(item=><article key={item.label}><i>{item.icon}</i><div><b>{item.label}</b>{item.href?<a href={item.href}>{item.value}</a>:<span>{item.value}</span>}</div></article>)}</div></aside><ContactForm email={email}/></div></section><section className="contact-map"><div className="map-grid"/><div className="map-river"/><div className="map-pin">●</div><div className="map-card"><img src="/logo-tag-transparent.png" alt="TAGTECH"/><p>{contact.address||'Địa chỉ đang được cập nhật'}</p></div></section></main><Footer contact={contact} tagline={data.brand?.tagline}/></>
+ return <><Header open={open} setOpen={setOpen} path="/lien-he"/><main className="inner-main contact-page"><section className="contact-hero"><div className="container"><span>KẾT NỐI VỚI TAGTECH</span><h1>Liên hệ với chúng tôi</h1><p>Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn.</p></div></section><section className="contact-content"><div className="container contact-layout"><aside className="contact-details"><div><span>THÔNG TIN LIÊN HỆ</span><h2>Hãy bắt đầu một cuộc trò chuyện</h2><p>Chia sẻ nhu cầu của bạn để TAGTECH có thể tư vấn giải pháp phù hợp nhất.</p></div><div className="contact-list">{details.map(item=><article key={item.label}><i>{item.icon}</i><div><b>{item.label}</b>{item.href?<a href={item.href}>{item.value}</a>:<span>{item.value}</span>}</div></article>)}</div></aside><ContactForm email={email}/></div></section><section className="contact-map"><div className="map-grid"/><div className="map-river"/><div className="map-pin">●</div><div className="map-card"><img src="/logo-tag-optimized.png" alt="TAGTECH"/><p>{contact.address||'Địa chỉ đang được cập nhật'}</p></div></section></main><Footer contact={contact} tagline={data.brand?.tagline}/></>
 }
 
 export default function App(){
- const [data,setData]=useState(null),[open,setOpen]=useState(false);
- useEffect(()=>{fetch('/api/site').then(r=>r.ok?r.json():Promise.reject()).then(setData).catch(()=>setData({}));document.title='TAGTECH | Giải pháp công nghệ & Chuyển đổi số'},[]);
- if(!data)return <div className="page-loading"><span/><p>Đang tải nội dung...</p></div>;
- const path=window.location.pathname.replace(/\/$/,'')||'/';
+ const [data,setData]=useState(()=>{try{return JSON.parse(sessionStorage.getItem('tagtech_site_data'))||{}}catch{return {}}}),[open,setOpen]=useState(false);
+ const [path,setPath]=useState(()=>window.location.pathname.replace(/\/$/,'')||'/');
+ useEffect(()=>{
+  fetch('/api/site').then(r=>r.ok?r.json():Promise.reject()).then(next=>{setData(next);try{sessionStorage.setItem('tagtech_site_data',JSON.stringify(next))}catch{}}).catch(()=>{});
+  document.title='TAGTECH | Giải pháp công nghệ & Chuyển đổi số';
+  const navigate=(event)=>{const link=event.target.closest('a');if(!link||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||link.target||link.hasAttribute('download'))return;const url=new URL(link.href,window.location.href);if(url.origin!==window.location.origin||url.pathname.startsWith('/admin')||url.protocol==='mailto:'||url.protocol==='tel:')return;if(url.pathname===window.location.pathname&&url.hash)return;event.preventDefault();window.history.pushState({},'',url.pathname+url.search+url.hash);setPath(url.pathname.replace(/\/$/,'')||'/');setOpen(false);window.scrollTo({top:0,behavior:'auto'})};
+  const restore=()=>{setPath(window.location.pathname.replace(/\/$/,'')||'/');setOpen(false)};
+  document.addEventListener('click',navigate);window.addEventListener('popstate',restore);
+  return()=>{document.removeEventListener('click',navigate);window.removeEventListener('popstate',restore)};
+ },[]);
  if(path==='/giai-phap'||path==='/solutions'||path.startsWith('/solutions/')) return <SolutionsPage data={data} open={open} setOpen={setOpen}/>;
  if(path==='/san-pham'||path==='/products'||path.startsWith('/products/')) return <ProductsPage data={data} open={open} setOpen={setOpen}/>;
  if(path==='/tin-tuc'||path==='/news') return <NewsPage data={data} open={open} setOpen={setOpen}/>;

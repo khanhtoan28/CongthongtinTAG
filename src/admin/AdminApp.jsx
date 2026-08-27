@@ -360,7 +360,7 @@ export default function AdminApp() {
       <div className="login-container">
         <div className="login-box">
           <div className="login-logo">
-            <img src="/logo-tag-transparent.png" alt="TAGTECH" />
+            <img src="/logo-tag-optimized.png" alt="TAGTECH" />
           </div>
           <h2>TAGTECH Content Studio</h2>
           <p>Nhập mã quản trị để tiếp tục</p>
@@ -417,7 +417,7 @@ export default function AdminApp() {
     <>
       <aside>
         <a className="brand brand-logo" href="/">
-          <img src="/logo-tag-transparent.png" alt="TAG Technology Group" />
+          <img src="/logo-tag-optimized.png" alt="TAG Technology Group" />
         </a>
         <p>CONTENT STUDIO</p>
         <nav id="tabs">

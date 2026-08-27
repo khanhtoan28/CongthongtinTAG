@@ -29,4 +29,11 @@ test('client supports deployed English aliases and dynamic routes', () => {
   assert.match(app, /path\.startsWith\('\/news\/'\)/);
 });
 
+test('client navigation renders immediately without waiting for the CMS API', () => {
+  const app = fs.readFileSync('src/client/App.jsx', 'utf8');
+  assert.match(app, /window\.history\.pushState/);
+  assert.match(app, /window\.addEventListener\('popstate'/);
+  assert.doesNotMatch(app, /if\(!data\)return <div className="page-loading"/);
+  assert.ok(fs.statSync('public/logo-tag-optimized.png').size < 100_000);
+});
 
