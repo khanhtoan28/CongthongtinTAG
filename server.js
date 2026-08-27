@@ -9,6 +9,19 @@ const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'admin123';
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg' };
 
 let db = null;
+let dbPromise = null;
+
+async function ensureDatabase() {
+  if (db) return db;
+  if (!dbPromise) dbPromise = connectDB();
+  try {
+    db = await dbPromise;
+    return db;
+  } catch (error) {
+    dbPromise = null;
+    throw error;
+  }
+}
 
 function send(res, status, body, type = 'application/json; charset=utf-8') {
   res.writeHead(status, { 'Content-Type': type, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
@@ -16,6 +29,12 @@ function send(res, status, body, type = 'application/json; charset=utf-8') {
 }
 function json(res, status, value) { send(res, status, JSON.stringify(value), types['.json']); }
 function readBody(req) {
+  if (req.body !== undefined) {
+    if (typeof req.body === 'string') {
+      return Promise.resolve(JSON.parse(req.body || '{}'));
+    }
+    return Promise.resolve(req.body || {});
+  }
   return new Promise((resolve, reject) => {
     let raw = '';
     req.on('data', c => { raw += c; if (raw.length > 1e6) req.destroy(); });
@@ -124,9 +143,9 @@ async function handler(req, res) {
   let pathnameStatic = decodeURIComponent(url.pathname);
   if (pathnameStatic === '/') pathnameStatic = '/index.html';
   if (pathnameStatic === '/admin' || pathnameStatic === '/admin/') pathnameStatic = '/admin.html';
-  const publicRoutes = ['/giai-phap', '/san-pham', '/du-an', '/tin-tuc', '/ve-tagtech', '/lien-he'];
-  if (publicRoutes.includes(pathnameStatic.replace(/\/$/, ''))) pathnameStatic = '/index.html';
-  if (/^\/tin-tuc\/[^/]+\/?$/.test(pathnameStatic)) pathnameStatic = '/index.html';
+  const routeWithoutSlash = pathnameStatic.replace(/\/$/, '');
+  if (routeWithoutSlash === '/admin') pathnameStatic = '/admin.html';
+  else if (!path.extname(routeWithoutSlash)) pathnameStatic = '/index.html';
   const file = path.normalize(path.join(PUBLIC, pathnameStatic));
   if (!file.startsWith(PUBLIC)) return send(res, 403, 'Forbidden', 'text/plain');
   try {
@@ -138,11 +157,24 @@ async function handler(req, res) {
 
 async function start() {
   try {
-    db = await connectDB();
+    await ensureDatabase();
     http.createServer(handler).listen(PORT, () => console.log(`TAGTECH running at http://localhost:${PORT}`));
   } catch (err) {
     console.error('Failed to start server:', err);
     process.exit(1);
   }
 }
-start();
+
+async function serverlessHandler(req, res) {
+  try {
+    await ensureDatabase();
+    return handler(req, res);
+  } catch (error) {
+    console.error('Database connection failed:', error);
+    return json(res, 500, { error: 'Không thể kết nối database.' });
+  }
+}
+
+if (require.main === module) start();
+
+module.exports = serverlessHandler;

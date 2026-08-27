@@ -186,13 +186,13 @@ export default function App(){
  useEffect(()=>{fetch('/api/site').then(r=>r.ok?r.json():Promise.reject()).then(setData).catch(()=>setData({}));document.title='TAGTECH | Giải pháp công nghệ & Chuyển đổi số'},[]);
  if(!data)return <div className="page-loading"><span/><p>Đang tải nội dung...</p></div>;
  const path=window.location.pathname.replace(/\/$/,'')||'/';
- if(path==='/giai-phap') return <SolutionsPage data={data} open={open} setOpen={setOpen}/>;
- if(path==='/san-pham') return <ProductsPage data={data} open={open} setOpen={setOpen}/>;
- if(path==='/tin-tuc') return <NewsPage data={data} open={open} setOpen={setOpen}/>;
- if(path.startsWith('/tin-tuc/')) return <ArticlePage data={data} open={open} setOpen={setOpen} slug={path.split('/').pop()}/>;
- if(path==='/du-an') return <ProjectsPage data={data} open={open} setOpen={setOpen}/>;
- if(path==='/ve-tagtech') return <AboutPage data={data} open={open} setOpen={setOpen}/>;
- if(path==='/lien-he') return <ContactPage data={data} open={open} setOpen={setOpen}/>;
+ if(path==='/giai-phap'||path==='/solutions'||path.startsWith('/solutions/')) return <SolutionsPage data={data} open={open} setOpen={setOpen}/>;
+ if(path==='/san-pham'||path==='/products'||path.startsWith('/products/')) return <ProductsPage data={data} open={open} setOpen={setOpen}/>;
+ if(path==='/tin-tuc'||path==='/news') return <NewsPage data={data} open={open} setOpen={setOpen}/>;
+ if(path.startsWith('/tin-tuc/')||path.startsWith('/news/')) return <ArticlePage data={data} open={open} setOpen={setOpen} slug={path.split('/').pop()}/>;
+ if(path==='/du-an'||path==='/projects'||path.startsWith('/projects/')) return <ProjectsPage data={data} open={open} setOpen={setOpen}/>;
+ if(path==='/ve-tagtech'||path==='/about') return <AboutPage data={data} open={open} setOpen={setOpen}/>;
+ if(path==='/lien-he'||path==='/contact') return <ContactPage data={data} open={open} setOpen={setOpen}/>;
  const solutions=solutionFallback.map(([icon,title,description])=>({icon,title,description}));
  const stats=statFallback.map(([value,label])=>({value,label})); const contact=data.contact||{};
  return <><Header open={open} setOpen={setOpen} path="/"/><main className="home-page">
